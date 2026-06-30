@@ -3,7 +3,7 @@
 Research · Academic · Support
 Polokwane, Limpopo, South Africa
 
-Live site: https://adriannorth98.github.io/RAS-Services/
+Live site: https://adriannorth98.github.io/RAS-Services
 
 ## About
 
