@@ -43,6 +43,7 @@
  --muted: #6b7280;
  --off-white:#F4F2EE;
  --tm: #8A9BB0;
+ --blue-deep: #1E3A8A;
  --font-d: 'DM Serif Display', Georgia, serif;
  --font-b: 'DM Sans', sans-serif;
  --r: 12px;
@@ -57,6 +58,7 @@
  color: var(--text);
  line-height: 1.6;
  padding-top: 72px;
+ overflow-x: hidden;
  }
  img { max-width: 100%; display: block; border-radius: var(--r); }
  a { text-decoration: none; color: inherit; transition: var(--tr); }
@@ -112,13 +114,15 @@
  background: var(--navy); border-radius: 2px; transition: var(--tr);
  }
 
- /* Mobile drawer */
+ /* Mobile / tablet drawer */
  .mobile-nav {
  display: none; position: fixed;
  top: 72px; left: 0; right: 0;
  background: var(--white); padding: 18px 5% 26px;
  box-shadow: 0 10px 24px rgba(0,0,0,0.1);
  z-index: 999; flex-direction: column; gap: 2px;
+ max-height: calc(100vh - 72px);
+ overflow-y: auto;
  }
  .mobile-nav.open { display: flex; }
  .mobile-nav button {
@@ -212,6 +216,7 @@
  cursor: pointer;
  }
  .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(13,27,42,0.07); border-color: var(--gold); }
+ .service-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
  .service-icon { font-size: 2rem; margin-bottom: 12px; }
  .service-card h3 { font-family: var(--font-d); color: var(--navy); font-size: 1.18rem; margin-bottom: 8px; }
  .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.62; margin-bottom: 14px; }
@@ -231,7 +236,7 @@
  .step-card h4 { font-family: var(--font-d); color: var(--navy); font-size: 1.08rem; margin-bottom: 7px; }
  .step-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
  .step-connector { display: none; }
- @media (min-width: 768px) {
+ @media (min-width: 1025px) {
  .step-card:not(:last-child)::after {
  content: ''; position: absolute; top: 47px; right: -22px;
  width: 22px; height: 1px; background: var(--mid);
@@ -267,9 +272,43 @@
  background: rgba(255,255,255,0.11); color: white;
  border: 1px solid rgba(255,255,255,0.28); padding: 12px 22px;
  border-radius: 8px; font-weight: 600; font-size: 15px;
- transition: background var(--tr);
+ transition: background var(--tr); cursor: pointer;
+ font-family: var(--font-b);
  }
  .btn-email:hover { background: rgba(255,255,255,0.2); }
+
+ /* ═══════════════════════════════════════════
+ EMAIL DROPDOWN (reusable, container-scoped)
+ ═══════════════════════════════════════════ */
+ .email-dropdown-container { position: relative; display: inline-block; }
+ .email-dropdown-menu {
+ display: none;
+ position: absolute; top: 100%; left: 50%;
+ transform: translateX(-50%); margin-top: 10px;
+ background-color: #ffffff;
+ box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+ border-radius: 14px; width: 240px; z-index: 1500;
+ overflow: hidden; font-family: var(--font-b);
+ border: 2px solid var(--blue-deep);
+ text-align: left;
+ }
+ .email-dropdown-menu.open { display: block; }
+ .btn-copy-email {
+ width: 100%; padding: 12px 16px; text-align: left;
+ background: var(--blue-deep); border: none;
+ border-bottom: 2px solid var(--gold);
+ font-size: 14px; font-weight: bold; color: #ffffff;
+ cursor: pointer; display: flex; align-items: center; gap: 8px;
+ transition: background 0.2s; font-family: var(--font-b);
+ }
+ .btn-copy-email:hover { background: #152a66; }
+ .email-provider-link {
+ display: block; padding: 12px 16px; text-decoration: none;
+ color: var(--blue-deep); font-size: 14px; font-weight: 500;
+ border-bottom: 1px solid #f1f5f9; transition: background 0.2s, color 0.2s;
+ }
+ .email-provider-link:last-child { border-bottom: none; }
+ .email-provider-link:hover { background-color: #F3E5AB; color: #111111; }
 
  /* ═══════════════════════════════════════════
  SERVICES — SUB-MENU (FIXED BELOW MAIN NAV)
@@ -374,7 +413,8 @@
  .svc-features li {
  font-size: 0.86rem; color: var(--slate); padding: 7px 0;
  border-bottom: 1px solid var(--mid);
- display: flex; justify-content: space-between; align-items: baseline;
+ display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+ flex-wrap: wrap;
  }
  .svc-features li:last-child { border-bottom: none; }
  .svc-features li strong { color: var(--navy); font-weight: 700; white-space: nowrap; margin-left: 8px; }
@@ -415,7 +455,7 @@
  .atoz-checklist li {
  font-size: 0.92rem; color: rgba(244,242,238,0.88); padding: 7px 0;
  border-bottom: 1px solid rgba(255,255,255,0.06);
- display: flex; align-items: center; gap: 10px;
+ display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
  }
  .atoz-checklist li:last-child { border-bottom: none; }
  .atoz-check { color: var(--gold); font-weight: 700; font-size: 1rem; flex-shrink: 0; }
@@ -426,7 +466,7 @@
  .atoz-level {
  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
  border-radius: 8px; padding: 12px 16px;
- display: flex; justify-content: space-between; align-items: center;
+ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;
  }
  .atoz-level-name { font-size: 0.88rem; color: rgba(244,242,238,0.75); }
  .atoz-level-price { font-family: var(--font-d); font-size: 1.35rem; color: var(--gold-lt); }
@@ -557,10 +597,15 @@
  .footer-brand img.flogo { height: 48px; width: auto; border-radius: 0; margin-bottom: 14px; }
  .footer-brand h3 { font-family: var(--font-d); color: var(--gold); font-size: 1.7rem; margin-bottom: 5px; }
  .footer-brand .sub { color: var(--tm); font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; }
+ .flinks { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
  .flinks a { display: block; color: rgba(244,246,249,0.82); margin-bottom: 9px; font-size: 0.98rem; }
  .flinks a:hover { color: var(--gold); }
+ .flinks .email-dropdown-container { margin-bottom: 9px; }
+ .flinks .btn-email { padding: 0; background: none; border: none; color: rgba(244,246,249,0.82); font-size: 0.98rem; font-weight: 400; text-align: left; }
+ .flinks .btn-email:hover { background: none; color: var(--gold); }
+ .flinks .email-dropdown-menu { left: 0; transform: none; }
  .footer-banner { text-align: right; }
- .footer-banner img { max-width: 360px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); margin-left: auto; margin-bottom: 18px; }
+ .footer-banner img { max-width: 360px; width: 100%; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); margin-left: auto; margin-bottom: 18px; }
  .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 0.78rem; color: var(--muted); }
 
  /* ═══════════════════════════════════════════
@@ -583,59 +628,6 @@
  }
  @media (max-width: 480px) {
  .fab-wa { width: 52px; height: 52px; bottom: 18px; right: 18px; }
- }
-
- /* ═══════════════════════════════════════════
- RESPONSIVE
- ═══════════════════════════════════════════ */
- @media (min-width: 768px) {
- .hamburger { display: none; }
- }
- @media (max-width: 767px) {
- .nav-links { display: none; }
- .nav-right .btn-shine { display: none; }
- .hamburger { display: flex; }
-
- .hero { grid-template-columns: 1fr; gap: 28px; text-align: center; padding: 16px 0 36px; }
- .hero-actions { justify-content: center; }
- .hero-image img { height: 270px; }
- .hero-text p { max-width: 100%; }
-
- .stats-bar { flex-direction: column; }
- .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
- .stat-item:last-child { border-bottom: none; }
-
- .steps-grid { grid-template-columns: 1fr 1fr; }
- .trust-bar { gap: 16px 28px; }
-
- .atoz-layout { grid-template-columns: 1fr; }
-
- .footer-grid { grid-template-columns: 1fr; gap: 28px; }
- .footer-banner { text-align: center; }
- .footer-banner img { margin: 0 auto; }
-
- .modal-body { padding: 1.4rem 1.2rem 2rem; }
- .modal-title { font-size: 1.4rem; }
- .cta-band { padding: 36px 22px; }
- }
- @media (max-width: 480px) {
- body { padding-top: 68px; }
- nav { height: 68px; }
- .mobile-nav { top: 68px; }
- .svc-nav-wrapper { top: 68px; }
- .svc-content { padding-top: 56px; }
- .page-section { padding: 38px 4%; }
- .project-grid { grid-template-columns: 1fr; }
- .svc-grid { grid-template-columns: 1fr; }
- .chapter-grid { grid-template-columns: 1fr; }
- .steps-grid { grid-template-columns: 1fr; }
- .trust-bar { gap: 14px 24px; }
- .cta-row { flex-direction: column; align-items: center; }
- .atoz-spotlight { padding: 24px 20px; }
- }
- @media (prefers-reduced-motion: reduce) {
- .modal, .page-section { animation: none; }
- * { transition: none !important; }
  }
 
  /* ═══════════════════════════════════════════
@@ -719,15 +711,87 @@
  .faq-a-inner p + p { margin-top: 10px; }
  .faq-a-inner strong { color: var(--navy); }
 
+ /* ═══════════════════════════════════════════
+ RESPONSIVE — DESKTOP DEFAULT ABOVE
+ Breakpoints: >1024 desktop · 768–1024 tablet · <768 mobile
+ ═══════════════════════════════════════════ */
+
+ /* ── Nav shows the drawer for tablets and phones alike, since four
+ tabs + logo + full CTA text crowd a narrow bar ── */
+ @media (min-width: 901px) {
+ .hamburger { display: none; }
+ }
+ @media (max-width: 900px) {
+ .nav-links { display: none; }
+ .nav-right .btn-shine { display: none; }
+ .hamburger { display: flex; }
+ }
+
+ /* ── Tablet (768–1024px): portrait iPads, Android tablets ── */
+ @media (min-width: 768px) and (max-width: 1024px) {
+ .hero { gap: 40px; }
+ .hero-image img { height: 340px; }
+ .hero-text p { max-width: 100%; }
+ .steps-grid { grid-template-columns: repeat(2, 1fr); }
+ .atoz-layout { grid-template-columns: 1fr; gap: 28px; }
+ .atoz-spotlight { padding: 32px; }
+ .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+ .footer-banner { text-align: left; }
+ .footer-banner img { margin-left: 0; max-width: 320px; }
+ .project-grid { grid-template-columns: repeat(2, 1fr); }
+ .services-grid { grid-template-columns: repeat(2, 1fr); }
+ }
+
+ /* ── Phones (≤767px) ── */
+ @media (max-width: 767px) {
+ .hero { grid-template-columns: 1fr; gap: 28px; text-align: center; padding: 16px 0 36px; }
+ .hero-actions { justify-content: center; }
+ .hero-image img { height: 270px; }
+ .hero-text p { max-width: 100%; }
+
+ .stats-bar { flex-direction: column; }
+ .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+ .stat-item:last-child { border-bottom: none; }
+
+ .steps-grid { grid-template-columns: 1fr 1fr; }
+ .trust-bar { gap: 16px 28px; }
+
+ .atoz-layout { grid-template-columns: 1fr; }
+
+ .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+ .footer-banner { text-align: center; }
+ .footer-banner img { margin: 0 auto; }
+ .flinks { align-items: center; }
+
+ .modal-body { padding: 1.4rem 1.2rem 2rem; }
+ .modal-title { font-size: 1.4rem; }
+ .cta-band { padding: 36px 22px; }
+ }
  @media (max-width: 480px) {
- .faq-q { padding: 15px 16px; font-size: 0.93rem; gap: 12px; }
- .faq-icon { width: 24px; height: 24px; font-size: 0.95rem; }
- .faq-a-inner { padding: 0 16px; }
- .faq-item.open .faq-a-inner { padding: 0 16px 16px; }
+ body { padding-top: 68px; }
+ nav { height: 68px; }
+ .mobile-nav { top: 68px; }
+ .svc-nav-wrapper { top: 68px; }
+ .svc-content { padding-top: 56px; }
+ .page-section { padding: 38px 4%; }
+ .project-grid { grid-template-columns: 1fr; }
+ .svc-grid { grid-template-columns: 1fr; }
+ .chapter-grid { grid-template-columns: 1fr; }
+ .steps-grid { grid-template-columns: 1fr; }
+ .trust-bar { gap: 14px 24px; }
+ .cta-row { flex-direction: column; align-items: center; }
+ .atoz-spotlight { padding: 24px 20px; }
+ .email-dropdown-menu { width: 220px; }
+ }
+ @media (max-width: 380px) {
+ .stat-number { font-size: 1.6rem; }
+ .hero-text h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
  }
  @media (prefers-reduced-motion: reduce) {
+ .modal, .page-section { animation: none; }
  .faq-a { transition: none; }
  .faq-icon { transition: none; }
+ * { transition: none !important; }
  }
  </style>
 </head>
@@ -754,7 +818,7 @@
  </div>
  </nav>
 
- <!-- Mobile drawer -->
+ <!-- Mobile / tablet drawer -->
  <div class="mobile-nav" id="mobileNav">
  <button onclick="switchTab('home'); closeMobile();" id="mnav-home" class="active">Overview</button>
  <button onclick="switchTab('services'); closeMobile();" id="mnav-services">Services</button>
@@ -849,37 +913,37 @@
  </div>
 
  <div class="services-grid">
- <div class="service-card" onclick="goToService('editing')">
+ <div class="service-card" onclick="goToService('editing')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToService('editing');}">
  <div class="service-icon">✍️</div>
  <h3>Editing &amp; Proofreading</h3>
  <p>Three professional tiers — from grammar and flow through to supervisor-feedback integration and full citation formatting.</p>
  <span class="service-link">View pricing <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
- <div class="service-card" onclick="goToService('writing')">
+ <div class="service-card" onclick="goToService('writing')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToService('writing');}">
  <div class="service-icon">📄</div>
  <h3>Research &amp; Academic Writing</h3>
  <p>Proposals, foundational bundles, individual chapters (1–5), and the complete A-to-Z dissertation package.</p>
  <span class="service-link">View pricing <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
- <div class="service-card" onclick="goToService('data')">
+ <div class="service-card" onclick="goToService('data')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToService('data');}">
  <div class="service-icon">📊</div>
  <h3>Data Analysis</h3>
  <p>Quantitative (SPSS), qualitative (NVivo/Atlas.ti), transcription, thematic coding, and mixed methods integration.</p>
  <span class="service-link">View pricing <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
- <div class="service-card" onclick="goToService('student')">
+ <div class="service-card" onclick="goToService('student')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToService('student');}">
  <div class="service-icon">🛠️</div>
  <h3>Practical Student Support</h3>
  <p>Google Forms survey design and deployment, manual data entry and digitisation for research projects.</p>
  <span class="service-link">View pricing <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
- <div class="service-card" onclick="goToService('mentorship')">
+ <div class="service-card" onclick="goToService('mentorship')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToService('mentorship');}">
  <div class="service-icon">🎓</div>
  <h3>Consultation &amp; Mentorship</h3>
  <p>Single-session consultations with follow-up media packs, and structured monthly academic or business mentorship programmes.</p>
  <span class="service-link">View pricing <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
- <div class="service-card" onclick="goToService('admin')">
+ <div class="service-card" onclick="goToService('admin')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToService('admin');}">
  <div class="service-icon">📝</div>
  <h3>Applications &amp; Submission</h3>
  <p>University and TVET admissions, NSFAS and corporate bursaries, reference list rebuilds, and submission-readiness packages.</p>
@@ -887,135 +951,30 @@
  </div>
  </div>
 
-<style>
-    .email-dropdown-container {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .email-dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 10px;
-        background-color: #ffffff;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        border-radius: 14px;
-        width: 240px;
-        z-index: 1000;
-        overflow: hidden;
-        font-family: sans-serif;
-        border: 2px solid #1E3A8A; /* Cohesive Deep Blue Border */
-    }
-    
-    .btn-copy-email {
-        width: 100%;
-        padding: 12px 16px;
-        text-align: left;
-        background: #1E3A8A; /* Deep Blue background */
-        border: none;
-        border-bottom: 2px solid #D4AF37; /* Gold border accent */
-        font-size: 14px;
-        font-weight: bold;
-        color: #ffffff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: background 0.2s;
-    }
-    
-    .btn-copy-email:hover {
-        background: #152a66;
-    }
-    
-    .email-provider-link {
-        display: block;
-        padding: 12px 16px;
-        text-decoration: none;
-        color: #1E3A8A;
-        font-size: 14px;
-        font-weight: 500;
-        border-bottom: 1px solid #f1f5f9;
-        transition: background 0.2s, color 0.2s;
-        text-align: left;
-    }
-    
-    .email-provider-link:last-child {
-        border-bottom: none;
-    }
-    
-    /* Gold highlight when hovering over email choices */
-    .email-provider-link:hover {
-        background-color: #F3E5AB; 
-        color: #111111;
-    }
-</style>
+ <div class="cta-band">
+ <h2>Ready to Get Started?</h2>
+ <p>Fill in the intake form to tell us about your project. We'll confirm availability and send a personalised quote within 12–24 hours.</p>
+ <div class="cta-row">
+ <a href="https://forms.gle/z1Htaxb2cNpWaA767" target="_blank" class="btn-shine" style="padding: 14px 34px; font-size: 15px;">Fill the Intake Form →</a>
 
-<div class="cta-band">
-    <h2>Ready to Get Started?</h2>
-    <p>Fill in the intake form to tell us about your project. We'll confirm availability and send a personalised quote within 12–24 hours.</p>
-    <div class="cta-row" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; align-items: center;">
-        
-        <a href="https://forms.gle/z1Htaxb2cNpWaA767" target="_blank" class="btn-shine" style="padding: 14px 34px; font-size: 15px; font-family: sans-serif; font-weight: bold; text-decoration: none; border-radius: 50px; background: linear-gradient(135deg, #D4AF37, #F3E5AB, #AA7C11); color: #111111; display: inline-block; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); transition: all 0.3s ease;">Fill the Intake Form →</a>
-        
-        <div class="email-dropdown-container">
-            <button onclick="toggleEmailDropdown(event)" class="btn-email" style="padding: 14px 34px; font-size: 15px; font-family: sans-serif; font-weight: bold; border: none; cursor: pointer; border-radius: 50px; background-color: #1E3A8A; color: #ffffff; display: inline-block; box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2); transition: all 0.3s ease;">✉️ Email Us</button>
-            
-            <div id="emailDropdown" class="email-dropdown-menu">
-                <button onclick="copyEmailAddress(this)" class="btn-copy-email">
-                    <span id="copyText">📋 Copy Email Address</span>
-                </button>
-                
-                <a href="mailto:r.services.za@gmail.com" class="email-provider-link">📱 Default Mail App</a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔴 Gmail</a>
-                <a href="https://outlook.live.com/mail/0/deeplink/compose?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
-                <a href="https://compose.mail.yahoo.com/?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
-            </div>
-        </div>
-        
-        <a href="https://www.google.com/search?q=R.A.S+Services&stick=H4sIAAAAAAAA_-NgU1I1qEg0TjY2M0tLTbM0MrJMSU6zMqgwNzU2SzE3NLc0NrZMsTRPWsTKF6TnqBesEJxaVJaZnFoMAPxnnsQ6AAAA&hl=en-GB&mat=Cbbwrni0gwlaElcBa0lj_0d9yhnspX07Nd2dPImHC8C-I49TL7xDwNV6dcI5a09Firk5wxkMcGQOh2klKMoI-TTVP9L6JCscVGwQhR-B-b0ka9WS47nIOsn-VpnJ46FRGgc&authuser=0" target="_blank" rel="noopener noreferrer" class="btn-google" style="padding: 14px 34px; font-size: 15px; font-family: sans-serif; font-weight: bold; text-decoration: none; border-radius: 50px; background-color: #3B82F6; color: #ffffff; display: inline-block; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); transition: all 0.3s ease;">⭐ View Us on Google</a>
-        
-    </div>
-</div>
-</section>
+ <div class="email-dropdown-container">
+ <button onclick="toggleEmailDropdown(event)" class="btn-email">✉️ Email Us</button>
+ <div class="email-dropdown-menu">
+ <button onclick="copyEmailAddress(event)" class="btn-copy-email">
+ <span class="copy-text">📋 Copy Email Address</span>
+ </button>
+ <a href="mailto:r.services.za@gmail.com" class="email-provider-link">📱 Default Mail App</a>
+ <a href="https://mail.google.com/mail/?view=cm&fs=1&to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔴 Gmail</a>
+ <a href="https://outlook.live.com/mail/0/deeplink/compose?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
+ <a href="https://compose.mail.yahoo.com/?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
+ </div>
+ </div>
 
-<script>
-function toggleEmailDropdown(event) {
-    event.stopPropagation();
-    var dropdown = document.getElementById("emailDropdown");
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block";
-    } else {
-        dropdown.style.display = "none";
-    }
-}
+ <a href="https://www.google.com/search?q=R.A.S+Services&stick=H4sIAAAAAAAA_-NgU1I1qEg0TjY2M0tLTbM0MrJMSU6zMqgwNzU2SzE3NLc0NrZMsTRPWsTKF6TnqBesEJxaVJaZnFoMAPxnnsQ6AAAA&hl=en-GB&mat=Cbbwrni0gwlaElcBa0lj_0d9yhnspX07Nd2dPImHC8C-I49TL7xDwNV6dcI5a09Firk5wxkMcGQOh2klKMoI-TTVP9L6JCscVGwQhR-B-b0ka9WS47nIOsn-VpnJ46FRGgc&authuser=0" target="_blank" rel="noopener noreferrer" class="btn-primary" style="border-radius:50px;background:#3B82F6;">⭐ View Us on Google</a>
+ </div>
+ </div>
 
-function copyEmailAddress(button) {
-    var email = "r.services.za@gmail.com";
-    navigator.clipboard.writeText(email).then(function() {
-        var copyText = document.getElementById("copyText");
-        copyText.innerText = "✅ Copied to Clipboard!";
-        button.style.background = "#22c55e"; // Success Green pop
-        setTimeout(function() {
-            copyText.innerText = "📋 Copy Email Address";
-            button.style.background = "#1E3A8A";
-        }, 2000);
-    }).catch(function(err) {
-        alert("The email address is: " + email);
-    });
-}
-
-// Close the menu automatically if the user clicks anywhere else on the screen
-document.addEventListener("click", function() {
-    var dropdown = document.getElementById("emailDropdown");
-    if (dropdown) {
-        dropdown.style.display = "none";
-    }
-});
-</script></section>
+ </section>
 
  <!-- ══════════════════════════════════════
  SERVICES SUB-MENU (fixed, body-level)
@@ -1797,8 +1756,6 @@ document.addEventListener("click", function() {
  </div>
  </section>
 
- <!-- Pricing section removed — see Services tab -->
-
  <!-- ══════════════════════════════════════
  FAQ SECTION
  ════════════════════════════════════════ -->
@@ -1950,118 +1907,21 @@ document.addEventListener("click", function() {
  <h3>R.A.S. Services</h3>
  <p class="sub">Research · Academic · Support<br>Polokwane, Limpopo — Mon–Fri 08H30–16H00</p>
  <div class="flinks">
- 
- <!-- Embedded CSS Styles for the interactive dropdown menu and layout -->
-<style>
-    .email-dropdown-container {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .email-dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 10px;
-        background-color: #ffffff;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        border-radius: 14px;
-        width: 240px;
-        z-index: 1000;
-        overflow: hidden;
-        font-family: sans-serif;
-        border: 2px solid #1E3A8A; /* Cohesive Deep Blue Border */
-    }
-    
-    .btn-copy-email {
-        width: 100%;
-        padding: 12px 16px;
-        text-align: left;
-        background: #1E3A8A; /* Deep Blue background */
-        border: none;
-        border-bottom: 2px solid #D4AF37; /* Gold border accent */
-        font-size: 14px;
-        font-weight: bold;
-        color: #ffffff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: background 0.2s;
-    }
-    
-    .btn-copy-email:hover {
-        background: #152a66;
-    }
-    
-    .email-provider-link {
-        display: block;
-        padding: 12px 16px;
-        text-decoration: none;
-        color: #1E3A8A;
-        font-size: 14px;
-        font-weight: 500;
-        border-bottom: 1px solid #f1f5f9;
-        transition: background 0.2s, color 0.2s;
-        text-align: left;
-    }
-    
-    .email-provider-link:last-child {
-        border-bottom: none;
-    }
-    
-    /* Gold highlight when hovering over email choices */
-    .email-provider-link:hover {
-        background-color: #F3E5AB; 
-        color: #111111;
-    }
-</style>
-
-<div class="cta-band">
-    <h2>Ready to Get Started?</h2>
-    <p>Fill in the intake form to tell us about your project. We'll confirm availability and send a personalised quote within 12–24 hours.</p>
-    <p style="text-align: left;"><a href="https://facebook.com/rasservices.za" target="_blank"><strong>Visit us on Facebook</strong></a></p>
-<p style="text-align: left;"><a href="https://www.linkedin.com/company/rasservices-za" target="_blank"><strong>Visit us on LinkedIn</strong></a></p>
-</section>
-
-<!-- Scripts handling functionality -->
-<script>
-function toggleEmailDropdown(event) {
-    event.stopPropagation();
-    var dropdown = document.getElementById("emailDropdown");
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block";
-    } else {
-        dropdown.style.display = "none";
-    }
-}
-
-function copyEmailAddress(button) {
-    var email = "r.services.za@gmail.com";
-    navigator.clipboard.writeText(email).then(function() {
-        var copyText = document.getElementById("copyText");
-        copyText.innerText = "✅ Copied to Clipboard!";
-        button.style.background = "#22c55e"; // Success Green pop
-        setTimeout(function() {
-            copyText.innerText = "📋 Copy Email Address";
-            button.style.background = "#1E3A8A";
-        }, 2000);
-    }).catch(function(err) {
-        alert("The email address is: " + email);
-    });
-}
-
-// Close the menu automatically if the user clicks anywhere else on the screen
-document.addEventListener("click", function() {
-    var dropdown = document.getElementById("emailDropdown");
-    if (dropdown) {
-        dropdown.style.display = "none";
-    }
-});
-</script>
- 
+ <a href="https://facebook.com/rasservices.za" target="_blank">Visit us on Facebook</a>
+ <a href="https://www.linkedin.com/company/rasservices-za" target="_blank">Visit us on LinkedIn</a>
+ <a href="https://wa.me/27672255957" target="_blank">WhatsApp Us</a>
+ <div class="email-dropdown-container">
+ <button onclick="toggleEmailDropdown(event)" class="btn-email"> Email Us</button>
+ <div class="email-dropdown-menu">
+ <button onclick="copyEmailAddress(event)" class="btn-copy-email">
+ <span class="copy-text">📋 Copy Email Address</span>
+ </button>
+ <a href="mailto:r.services.za@gmail.com" class="email-provider-link">📱 Default Mail App</a>
+ <a href="https://mail.google.com/mail/?view=cm&fs=1&to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔴 Gmail</a>
+ <a href="https://outlook.live.com/mail/0/deeplink/compose?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
+ <a href="https://compose.mail.yahoo.com/?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
+ </div>
+ </div>
  </div>
  <div style="margin-top:22px;">
  <a href="https://forms.gle/z1Htaxb2cNpWaA767" target="_blank" class="btn-shine" style="padding:12px 26px;">Fill the Intake Form →</a>
@@ -2091,6 +1951,35 @@ document.addEventListener("click", function() {
  SCRIPTS
  ════════════════════════════════════════ -->
  <script>
+ /* ══ Email dropdown (shared, container-scoped — works for any number of instances) ══ */
+ function toggleEmailDropdown(event) {
+ event.stopPropagation();
+ const container = event.currentTarget.closest('.email-dropdown-container');
+ const menu = container.querySelector('.email-dropdown-menu');
+ const isOpen = menu.classList.contains('open');
+ document.querySelectorAll('.email-dropdown-menu.open').forEach(m => m.classList.remove('open'));
+ if (!isOpen) menu.classList.add('open');
+ }
+ function copyEmailAddress(event) {
+ event.stopPropagation();
+ const email = "r.services.za@gmail.com";
+ const btn = event.currentTarget;
+ const label = btn.querySelector('.copy-text');
+ navigator.clipboard.writeText(email).then(function () {
+ label.textContent = "✅ Copied to Clipboard!";
+ btn.style.background = "#22c55e";
+ setTimeout(function () {
+ label.textContent = "📋 Copy Email Address";
+ btn.style.background = "";
+ }, 2000);
+ }).catch(function () {
+ alert("The email address is: " + email);
+ });
+ }
+ document.addEventListener('click', function () {
+ document.querySelectorAll('.email-dropdown-menu.open').forEach(m => m.classList.remove('open'));
+ });
+
  /* ══ Main tab switching ══ */
  const TABS = ['home','services','portfolio','faq'];
  const svcNavEl = document.getElementById('svcNavWrapper');
@@ -2136,7 +2025,7 @@ document.addEventListener("click", function() {
  if (btn) btn.classList.add('active');
  }
 
- /* ══ Mobile nav ══ */
+ /* ══ Mobile / tablet nav ══ */
  function toggleMobile() {
  const nav = document.getElementById('mobileNav');
  const btn = document.getElementById('hamburgerBtn');
