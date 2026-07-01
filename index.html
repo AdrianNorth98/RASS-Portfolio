@@ -887,16 +887,135 @@
  </div>
  </div>
 
- <div class="cta-band">
- <h2>Ready to Get Started?</h2>
- <p>Fill in the intake form to tell us about your project. We'll confirm availability and send a personalised quote within 12–24 hours.</p>
- <div class="cta-row">
- <a href="https://forms.gle/z1Htaxb2cNpWaA767" target="_blank" class="btn-shine" style="padding:14px 34px;font-size:15px;">Fill the Intake Form →</a>
- 
- <a href="mailto:r.services.za@gmail.com" class="btn-email">✉️ Email Us</a>
- </div>
- </div>
- </section>
+<style>
+    .email-dropdown-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .email-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-radius: 14px;
+        width: 240px;
+        z-index: 1000;
+        overflow: hidden;
+        font-family: sans-serif;
+        border: 2px solid #1E3A8A; /* Cohesive Deep Blue Border */
+    }
+    
+    .btn-copy-email {
+        width: 100%;
+        padding: 12px 16px;
+        text-align: left;
+        background: #1E3A8A; /* Deep Blue background */
+        border: none;
+        border-bottom: 2px solid #D4AF37; /* Gold border accent */
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s;
+    }
+    
+    .btn-copy-email:hover {
+        background: #152a66;
+    }
+    
+    .email-provider-link {
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: #1E3A8A;
+        font-size: 14px;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f5f9;
+        transition: background 0.2s, color 0.2s;
+        text-align: left;
+    }
+    
+    .email-provider-link:last-child {
+        border-bottom: none;
+    }
+    
+    /* Gold highlight when hovering over email choices */
+    .email-provider-link:hover {
+        background-color: #F3E5AB; 
+        color: #111111;
+    }
+</style>
+
+<div class="cta-band">
+    <h2>Ready to Get Started?</h2>
+    <p>Fill in the intake form to tell us about your project. We'll confirm availability and send a personalised quote within 12–24 hours.</p>
+    <div class="cta-row" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; align-items: center;">
+        
+        <a href="https://forms.gle/z1Htaxb2cNpWaA767" target="_blank" class="btn-shine" style="padding: 14px 34px; font-size: 15px; font-family: sans-serif; font-weight: bold; text-decoration: none; border-radius: 50px; background: linear-gradient(135deg, #D4AF37, #F3E5AB, #AA7C11); color: #111111; display: inline-block; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); transition: all 0.3s ease;">Fill the Intake Form →</a>
+        
+        <div class="email-dropdown-container">
+            <button onclick="toggleEmailDropdown(event)" class="btn-email" style="padding: 14px 34px; font-size: 15px; font-family: sans-serif; font-weight: bold; border: none; cursor: pointer; border-radius: 50px; background-color: #1E3A8A; color: #ffffff; display: inline-block; box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2); transition: all 0.3s ease;">✉️ Email Us</button>
+            
+            <div id="emailDropdown" class="email-dropdown-menu">
+                <button onclick="copyEmailAddress(this)" class="btn-copy-email">
+                    <span id="copyText">📋 Copy Email Address</span>
+                </button>
+                
+                <a href="mailto:r.services.za@gmail.com" class="email-provider-link">📱 Default Mail App</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔴 Gmail</a>
+                <a href="https://outlook.live.com/mail/0/deeplink/compose?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
+                <a href="https://compose.mail.yahoo.com/?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
+            </div>
+        </div>
+        
+        <a href="https://www.google.com/search?q=R.A.S+Services&stick=H4sIAAAAAAAA_-NgU1I1qEg0TjY2M0tLTbM0MrJMSU6zMqgwNzU2SzE3NLc0NrZMsTRPWsTKF6TnqBesEJxaVJaZnFoMAPxnnsQ6AAAA&hl=en-GB&mat=Cbbwrni0gwlaElcBa0lj_0d9yhnspX07Nd2dPImHC8C-I49TL7xDwNV6dcI5a09Firk5wxkMcGQOh2klKMoI-TTVP9L6JCscVGwQhR-B-b0ka9WS47nIOsn-VpnJ46FRGgc&authuser=0" target="_blank" rel="noopener noreferrer" class="btn-google" style="padding: 14px 34px; font-size: 15px; font-family: sans-serif; font-weight: bold; text-decoration: none; border-radius: 50px; background-color: #3B82F6; color: #ffffff; display: inline-block; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); transition: all 0.3s ease;">⭐ View Us on Google</a>
+        
+    </div>
+</div>
+</section>
+
+<script>
+function toggleEmailDropdown(event) {
+    event.stopPropagation();
+    var dropdown = document.getElementById("emailDropdown");
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+}
+
+function copyEmailAddress(button) {
+    var email = "r.services.za@gmail.com";
+    navigator.clipboard.writeText(email).then(function() {
+        var copyText = document.getElementById("copyText");
+        copyText.innerText = "✅ Copied to Clipboard!";
+        button.style.background = "#22c55e"; // Success Green pop
+        setTimeout(function() {
+            copyText.innerText = "📋 Copy Email Address";
+            button.style.background = "#1E3A8A";
+        }, 2000);
+    }).catch(function(err) {
+        alert("The email address is: " + email);
+    });
+}
+
+// Close the menu automatically if the user clicks anywhere else on the screen
+document.addEventListener("click", function() {
+    var dropdown = document.getElementById("emailDropdown");
+    if (dropdown) {
+        dropdown.style.display = "none";
+    }
+});
+</script></section>
 
  <!-- ══════════════════════════════════════
  SERVICES SUB-MENU (fixed, body-level)
@@ -1832,8 +1951,116 @@
  <p class="sub">Research · Academic · Support<br>Polokwane, Limpopo — Mon–Fri 08H30–16H00</p>
  <div class="flinks">
  
- <a href="mailto:r.services.za@gmail.com">✉️ r.services.za@gmail.com</a>
- <a href="https://facebook.com/rasservices.za" target="_blank">🌐 facebook.com/rasservices.za</a>
+ <!-- Embedded CSS Styles for the interactive dropdown menu and layout -->
+<style>
+    .email-dropdown-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .email-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-radius: 14px;
+        width: 240px;
+        z-index: 1000;
+        overflow: hidden;
+        font-family: sans-serif;
+        border: 2px solid #1E3A8A; /* Cohesive Deep Blue Border */
+    }
+    
+    .btn-copy-email {
+        width: 100%;
+        padding: 12px 16px;
+        text-align: left;
+        background: #1E3A8A; /* Deep Blue background */
+        border: none;
+        border-bottom: 2px solid #D4AF37; /* Gold border accent */
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s;
+    }
+    
+    .btn-copy-email:hover {
+        background: #152a66;
+    }
+    
+    .email-provider-link {
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: #1E3A8A;
+        font-size: 14px;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f5f9;
+        transition: background 0.2s, color 0.2s;
+        text-align: left;
+    }
+    
+    .email-provider-link:last-child {
+        border-bottom: none;
+    }
+    
+    /* Gold highlight when hovering over email choices */
+    .email-provider-link:hover {
+        background-color: #F3E5AB; 
+        color: #111111;
+    }
+</style>
+
+<div class="cta-band">
+    <h2>Ready to Get Started?</h2>
+    <p>Fill in the intake form to tell us about your project. We'll confirm availability and send a personalised quote within 12–24 hours.</p>
+    <p style="text-align: left;"><a href="https://facebook.com/rasservices.za" target="_blank"><strong>Visit us on Facebook</strong></a></p>
+<p style="text-align: left;"><a href="https://www.linkedin.com/company/rasservices-za" target="_blank"><strong>Visit us on LinkedIn</strong></a></p>
+</section>
+
+<!-- Scripts handling functionality -->
+<script>
+function toggleEmailDropdown(event) {
+    event.stopPropagation();
+    var dropdown = document.getElementById("emailDropdown");
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+}
+
+function copyEmailAddress(button) {
+    var email = "r.services.za@gmail.com";
+    navigator.clipboard.writeText(email).then(function() {
+        var copyText = document.getElementById("copyText");
+        copyText.innerText = "✅ Copied to Clipboard!";
+        button.style.background = "#22c55e"; // Success Green pop
+        setTimeout(function() {
+            copyText.innerText = "📋 Copy Email Address";
+            button.style.background = "#1E3A8A";
+        }, 2000);
+    }).catch(function(err) {
+        alert("The email address is: " + email);
+    });
+}
+
+// Close the menu automatically if the user clicks anywhere else on the screen
+document.addEventListener("click", function() {
+    var dropdown = document.getElementById("emailDropdown");
+    if (dropdown) {
+        dropdown.style.display = "none";
+    }
+});
+</script>
  
  </div>
  <div style="margin-top:22px;">
