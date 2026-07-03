@@ -285,30 +285,30 @@
  display: none;
  position: absolute; top: 100%; left: 50%;
  transform: translateX(-50%); margin-top: 10px;
- background-color: #ffffff;
- box-shadow: 0 10px 25px rgba(0,0,0,0.15);
- border-radius: 14px; width: 240px; z-index: 1500;
+ background-color: var(--navy);
+ box-shadow: 0 16px 36px rgba(13,27,42,0.35);
+ border-radius: var(--r); width: 240px; z-index: 1500;
  overflow: hidden; font-family: var(--font-b);
- border: 2px solid var(--blue-deep);
+ border: 1px solid var(--gold-30);
  text-align: left;
  }
  .email-dropdown-menu.open { display: block; }
  .btn-copy-email {
  width: 100%; padding: 12px 16px; text-align: left;
- background: var(--blue-deep); border: none;
- border-bottom: 2px solid var(--gold);
- font-size: 14px; font-weight: bold; color: #ffffff;
+ background: var(--gold); border: none;
+ border-bottom: 1px solid var(--gold-30);
+ font-size: 14px; font-weight: 700; color: var(--navy);
  cursor: pointer; display: flex; align-items: center; gap: 8px;
  transition: background 0.2s; font-family: var(--font-b);
  }
- .btn-copy-email:hover { background: #152a66; }
+ .btn-copy-email:hover { background: var(--gold-lt); }
  .email-provider-link {
  display: block; padding: 12px 16px; text-decoration: none;
- color: var(--blue-deep); font-size: 14px; font-weight: 500;
- border-bottom: 1px solid #f1f5f9; transition: background 0.2s, color 0.2s;
+ color: rgba(244,242,238,0.88); font-size: 14px; font-weight: 500;
+ border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s, color 0.2s;
  }
  .email-provider-link:last-child { border-bottom: none; }
- .email-provider-link:hover { background-color: #F3E5AB; color: #111111; }
+ .email-provider-link:hover { background-color: var(--gold-10); color: var(--gold-lt); }
 
  /* ═══════════════════════════════════════════
  SERVICES — SUB-MENU (FIXED BELOW MAIN NAV)
@@ -598,8 +598,8 @@
  .footer-brand h3 { font-family: var(--font-d); color: var(--gold); font-size: 1.7rem; margin-bottom: 5px; }
  .footer-brand .sub { color: var(--tm); font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; }
  .flinks { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
- .flinks a { display: block; color: rgba(244,246,249,0.82); margin-bottom: 9px; font-size: 0.98rem; }
- .flinks a:hover { color: var(--gold); }
+ .flinks > a { display: block; color: rgba(244,246,249,0.82); margin-bottom: 9px; font-size: 0.98rem; }
+ .flinks > a:hover { color: var(--gold); }
  .flinks .email-dropdown-container { margin-bottom: 9px; }
  .flinks .btn-email { padding: 0; background: none; border: none; color: rgba(244,246,249,0.82); font-size: 0.98rem; font-weight: 400; text-align: left; }
  .flinks .btn-email:hover { background: none; color: var(--gold); }
@@ -963,10 +963,10 @@
  <button onclick="copyEmailAddress(event)" class="btn-copy-email">
  <span class="copy-text">📋 Copy Email Address</span>
  </button>
- <a href="mailto:r.services.za@gmail.com" class="email-provider-link">📱 Default Mail App</a>
- <a href="https://mail.google.com/mail/?view=cm&fs=1&to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔴 Gmail</a>
- <a href="https://outlook.live.com/mail/0/deeplink/compose?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
- <a href="https://compose.mail.yahoo.com/?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
+ <a href="mailto:info@rasservices.co.za" class="email-provider-link">📱 Default Mail App</a>
+ <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@rasservices.co.za" target="_blank" class="email-provider-link">🔴 Gmail</a>
+ <a href="https://outlook.live.com/mail/0/deeplink/compose?to=info@rasservices.co.za" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
+ <a href="https://compose.mail.yahoo.com/?to=info@rasservices.co.za" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
  </div>
  </div>
 
@@ -1916,10 +1916,10 @@
  <button onclick="copyEmailAddress(event)" class="btn-copy-email">
  <span class="copy-text">📋 Copy Email Address</span>
  </button>
- <a href="mailto:r.services.za@gmail.com" class="email-provider-link">📱 Default Mail App</a>
- <a href="https://mail.google.com/mail/?view=cm&fs=1&to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔴 Gmail</a>
- <a href="https://outlook.live.com/mail/0/deeplink/compose?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
- <a href="https://compose.mail.yahoo.com/?to=r.services.za@gmail.com" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
+ <a href="mailto:info@rasservices.co.za" class="email-provider-link">📱 Default Mail App</a>
+ <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@rasservices.co.za" target="_blank" class="email-provider-link">🔴 Gmail</a>
+ <a href="https://outlook.live.com/mail/0/deeplink/compose?to=info@rasservices.co.za" target="_blank" class="email-provider-link">🔵 Outlook / Hotmail</a>
+ <a href="https://compose.mail.yahoo.com/?to=info@rasservices.co.za" target="_blank" class="email-provider-link">🟣 Yahoo Mail</a>
  </div>
  </div>
  </div>
@@ -1962,7 +1962,7 @@
  }
  function copyEmailAddress(event) {
  event.stopPropagation();
- const email = "r.services.za@gmail.com";
+ const email = "info@rasservices.co.za";
  const btn = event.currentTarget;
  const label = btn.querySelector('.copy-text');
  navigator.clipboard.writeText(email).then(function () {
