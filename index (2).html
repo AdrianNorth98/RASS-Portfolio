@@ -9,6 +9,33 @@
  <meta name="author" content="R.A.S. Services" />
  <link rel="canonical" href="https://portfolio.rasservices.co.za/" />
 
+ <!-- ══════════════════════════════════════════════════════════
+      REFERRAL LINK GATE — runs first, before anything else parses.
+      If a "ref" param is present on the URL but does NOT match
+      REF_PATTERN, the page is blanked immediately. No ref param at
+      all is fine — the site loads normally with the default form link.
+      ══════════════════════════════════════════════════════════ -->
+ <script>
+ (function () {
+   var REF_PATTERN = /^RASS-([PRAS][0-9]{3}-(03|09)[0-9]{2}|RP[0-9]{2}-(0[1-9]|1[0-2])[0-9]{2}|C[0-9]{3}-(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2]))$/;
+   var rawUrlCode = null;
+   try {
+     rawUrlCode = new URLSearchParams(window.location.search).get('ref');
+   } catch (e) { /* ignore */ }
+
+   if (rawUrlCode) {
+     var normalized = rawUrlCode.trim().toUpperCase();
+     if (!REF_PATTERN.test(normalized)) {
+       document.documentElement.innerHTML = '';
+       document.title = '';
+       // Stop the rest of the page from parsing/rendering further
+       window.stop && window.stop();
+       throw new Error('Invalid referral code — page blocked.');
+     }
+   }
+ })();
+ </script>
+
  <!-- Open Graph / social sharing -->
  <meta property="og:type" content="website" />
  <meta property="og:title" content="R.A.S. Services — Research, Academic &amp; Support" />
@@ -1960,6 +1987,12 @@
  Forms pre-filled with that code. No per-partner link needs to be
  pre-built — any code matching the pattern works automatically,
  including ones not yet listed in the partner sheet.
+
+ NOTE: The hard gate that blanks the page for invalid codes now lives
+ in <head>, as early in the document as possible, so invalid codes
+ never even get this far. This script only handles the "happy path":
+ rewriting links for a code that has already passed validation (or
+ doing the default no-code behaviour).
  ══════════════════════════════════════════════════════════ */
  (function () {
  var FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLScMDz_7yDdXTEo1SO5TFgelQxFAtr_Hzf5H8PVkTotgt9kx1Q/viewform';
